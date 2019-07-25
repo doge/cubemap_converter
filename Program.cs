@@ -77,6 +77,7 @@ namespace cubemap_converter
                     Console.WriteLine("compressing sky.dds...");
                     var texconv = Process.Start(Directory.GetCurrentDirectory() + "\\bin\\texconv.exe", $"{ Directory.GetCurrentDirectory() }\\bin\\sky.dds -o bin\\ -bcquick -f DXT1 -wiclossless -y");
                     texconv.StartInfo.CreateNoWindow = true;
+                    texconv.WaitForExit();
                     Console.WriteLine("sky.dds compressed with dxt1");
                 }
 
