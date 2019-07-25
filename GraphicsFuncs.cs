@@ -2,12 +2,14 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
 
 namespace cubemap_converter
 {
     public class GraphicsFuncs
     {
-        public Bitmap ReturnCroppedBitmap(Bitmap originalImage, int[] firstPoint, int[] secondPoint)
+        public static Bitmap ReturnCroppedBitmap(Bitmap originalImage, int[] firstPoint, int[] secondPoint)
         {
             // calculate the width and height of our new image
             int width = Math.Abs(firstPoint[0] - secondPoint[0]);
@@ -24,8 +26,37 @@ namespace cubemap_converter
             return area;
         }
 
+        public static int GreatestCommonFactor(int a, int b)
+        {
+            // calculate greatest common factor and return the result
+
+            while (a != 0 && b != 0)
+            {
+                if (a > b)
+                    a %= b;
+                else
+                    b %= a;
+            }
+
+            return a == 0 ? b : a;
+        }
+
+        public static Bitmap[] ReturnSeperatedCubemap(Bitmap cubemap, int multiple)
+        {
+            Bitmap positiveX = ReturnCroppedBitmap(cubemap, new int[] { multiple * 2, multiple }, new int[] { multiple * 3, multiple * 2 });
+            Bitmap negativeX = ReturnCroppedBitmap(cubemap, new int[] { 0, multiple }, new int[] { multiple, multiple * 2 });
+
+            Bitmap positiveY = ReturnCroppedBitmap(cubemap, new int[] { multiple, 0 }, new int[] { multiple * 2, multiple });
+            Bitmap negativeY = ReturnCroppedBitmap(cubemap, new int[] { multiple, multiple * 2 }, new int[] { multiple * 2, multiple * 3 });
+
+            Bitmap positiveZ = ReturnCroppedBitmap(cubemap, new int[] { multiple, multiple }, new int[] { multiple * 2, multiple * 2 });
+            Bitmap negativeZ = ReturnCroppedBitmap(cubemap, new int[] { multiple * 3, multiple }, new int[] { multiple * 4, multiple * 2 });
+
+            return new Bitmap[] { positiveX, negativeX, positiveY, negativeY, positiveZ, negativeZ };
+        }
+
         // https://stackoverflow.com/questions/1922040/how-to-resize-an-image-c-sharp
-        public Bitmap ResizeImage(Image image, int width, int height)
+        public static Bitmap ResizeImage(Image image, int width, int height)
         {
             var destRect = new Rectangle(0, 0, width, height);
             var destImage = new Bitmap(width, height);
