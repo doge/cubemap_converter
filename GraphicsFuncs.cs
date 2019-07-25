@@ -41,7 +41,7 @@ namespace cubemap_converter
             return a == 0 ? b : a;
         }
 
-        public static Bitmap[] ReturnSeperatedCubemap(Bitmap cubemap, int multiple)
+        public static Bitmap[] ReturnSeperatedHorizontalCross(Bitmap cubemap, int multiple)
         {
             Bitmap positiveX = ReturnCroppedBitmap(cubemap, new int[] { multiple * 2, multiple }, new int[] { multiple * 3, multiple * 2 });
             Bitmap negativeX = ReturnCroppedBitmap(cubemap, new int[] { 0, multiple }, new int[] { multiple, multiple * 2 });

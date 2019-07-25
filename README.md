@@ -1,8 +1,30 @@
 # cubemap_converter
 convert horizontal cross cubemaps to .dds.
 
+## arguments
+
+|  argument |             description           |     type      |
+|:---------:|:---------------------------------:|:-------------:|
+| hcross    | Path to horizontal cross cubemap. |     string    |
+| vcross    | Path to vertical cross cubemap.   |     string    |
+| hrow      | Path to horizontal row cubemap.   |     string    |
+| vrow      | Path to vertical cross cubemap.   |     string    |
+
 ## usage
-drag the horizontal cross cubemap over the program. the output is stored in `<executable root folter>/bin`
-. as of now, ~~the program only supports 512x512 for each face of the cube~~ the program now supports all resolutions (testing).
+
+compile cubemap_converter.exe and launch it with one of the launch parameters like so;
+
+```powershell
+cubemap_converter.exe -hcross <path to hcross>
+```
+
+the output is located at `<exe root folder>/bin` named `sky.dds`.
+
+## goals
+* [ ] support all types of cubemaps
+	* [x] horizontal cross
+	* [ ] vertical cross
+	* [ ] horizontal row
+	* [ ] vertical row
 
 [textconv & texassemble](https://github.com/microsoft)
