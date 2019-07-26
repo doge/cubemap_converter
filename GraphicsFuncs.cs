@@ -25,14 +25,10 @@ namespace cubemap_converter
 
         public static Bitmap[] ReturnSeperatedVerticalCross(Bitmap cubemap, int faceSize)
         {
-            // todo
-
             Bitmap positiveX = ReturnCroppedBitmap(cubemap, new int[] { faceSize * 2, faceSize }, new int[] { faceSize * 3, faceSize * 2 });
             Bitmap negativeX = ReturnCroppedBitmap(cubemap, new int[] { 0, faceSize }, new int[] { faceSize, faceSize * 2 });
 
             Bitmap positiveY = ReturnCroppedBitmap(cubemap, new int[] { faceSize, 0 }, new int[] { faceSize * 2, faceSize });
-
-
             Bitmap negativeY = ReturnCroppedBitmap(cubemap, new int[] { faceSize, faceSize * 2 }, new int[] { faceSize * 2, faceSize * 3 });
 
             Bitmap positiveZ = ReturnCroppedBitmap(cubemap, new int[] { faceSize, faceSize * 3 }, new int[] { faceSize * 2, faceSize * 4 });
