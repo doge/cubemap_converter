@@ -1,5 +1,5 @@
 # cubemap_converter
-convert horizontal cross cubemaps to .dds.
+convert cubemaps to .dds 
 
 ## arguments
 
