@@ -10,6 +10,10 @@ convert cubemaps to .dds
 | hrow      | Path to horizontal row cubemap.   |     string    |
 | vrow      | Path to vertical cross cubemap.   |     string    |
 
+## diagrams
+
+![cubemap diagram](https://docs.unity3d.com/uploads/Textures/CubeLayout6Faces.png)
+
 ## usage
 
 compile cubemap_converter.exe and launch it with one of the launch parameters like so;
