@@ -22,12 +22,12 @@ compile cubemap_converter.exe and launch it with one of the launch parameters li
 cubemap_converter.exe -hcross <path to hcross>
 ```
 
-the output is located at `<exe root folder>/bin` named `sky.dds`.
+the output is located at `<exe root folder>/bin/sky.dds`.
 
 ## goals
 * [ ] support all types of cubemaps
 	* [x] horizontal cross
-	* [ ] vertical cross
+	* [x] vertical cross
 	* [ ] horizontal row
 	* [ ] vertical row
 
