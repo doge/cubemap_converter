@@ -31,4 +31,4 @@ the output is located at `<exe root folder>/bin/sky.dds`.
 	* [ ] horizontal row
 	* [ ] vertical row
 
-[textconv & texassemble](https://github.com/microsoft)
+[textconv & texassemble](https://github.com/microsoft/DirectXTex)
