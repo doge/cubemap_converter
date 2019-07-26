@@ -9,7 +9,71 @@ namespace cubemap_converter
 {
     public class GraphicsFuncs
     {
-        public static Bitmap ReturnCroppedBitmap(Bitmap originalImage, int[] firstPoint, int[] secondPoint)
+        public static Bitmap[] ReturnSeperatedHorizontalCross(Bitmap cubemap, int faceSize)
+        {
+            Bitmap positiveX = ReturnCroppedBitmap(cubemap, new int[] { faceSize * 2, faceSize }, new int[] { faceSize * 3, faceSize * 2 });
+            Bitmap negativeX = ReturnCroppedBitmap(cubemap, new int[] { 0, faceSize }, new int[] { faceSize, faceSize * 2 });
+
+            Bitmap positiveY = ReturnCroppedBitmap(cubemap, new int[] { faceSize, 0 }, new int[] { faceSize * 2, faceSize });
+            Bitmap negativeY = ReturnCroppedBitmap(cubemap, new int[] { faceSize, faceSize * 2 }, new int[] { faceSize * 2, faceSize * 3 });
+
+            Bitmap positiveZ = ReturnCroppedBitmap(cubemap, new int[] { faceSize, faceSize }, new int[] { faceSize * 2, faceSize * 2 });
+            Bitmap negativeZ = ReturnCroppedBitmap(cubemap, new int[] { faceSize * 3, faceSize }, new int[] { faceSize * 4, faceSize * 2 });
+
+            return new Bitmap[] { positiveX, negativeX, positiveY, negativeY, positiveZ, negativeZ };
+        }
+
+        public static Bitmap[] ReturnSeperatedVerticalCross(Bitmap cubemap, int faceSize)
+        {
+            // todo
+
+            Bitmap positiveX = ReturnCroppedBitmap(cubemap, new int[] { faceSize * 2, faceSize }, new int[] { faceSize * 3, faceSize * 2 });
+            Bitmap negativeX = ReturnCroppedBitmap(cubemap, new int[] { 0, faceSize }, new int[] { faceSize, faceSize * 2 });
+
+            Bitmap positiveY = ReturnCroppedBitmap(cubemap, new int[] { faceSize, 0 }, new int[] { faceSize * 2, faceSize });
+
+
+            Bitmap negativeY = ReturnCroppedBitmap(cubemap, new int[] { faceSize, faceSize * 2 }, new int[] { faceSize * 2, faceSize * 3 });
+
+            Bitmap positiveZ = ReturnCroppedBitmap(cubemap, new int[] { faceSize, faceSize * 3 }, new int[] { faceSize * 2, faceSize * 4 });
+            Bitmap negativeZ = ReturnCroppedBitmap(cubemap, new int[] { faceSize, faceSize }, new int[] { faceSize * 2, faceSize * 2 });
+
+            return new Bitmap[] { positiveX, negativeX, positiveY, negativeY, positiveZ, negativeZ };
+        }
+
+        public static Bitmap[] ReturnSeperatedHorizontalRow(Bitmap cubemap, int faceSize)
+        {
+            // todo
+
+            Bitmap positiveX = null;
+            Bitmap negativeX = null;
+
+            Bitmap positiveY = null;
+            Bitmap negativeY = null;
+
+            Bitmap positiveZ = null;
+            Bitmap negativeZ = null;
+
+            return new Bitmap[] { positiveX, negativeX, positiveY, negativeY, positiveZ, negativeZ };
+        }
+
+        public static Bitmap[] ReturnSeperatedVericalRow(Bitmap cubemap, int faceSize)
+        {
+            // todo
+
+            Bitmap positiveX = null;
+            Bitmap negativeX = null;
+
+            Bitmap positiveY = null;
+            Bitmap negativeY = null;
+
+            Bitmap positiveZ = null;
+            Bitmap negativeZ = null;
+
+            return new Bitmap[] { positiveX, negativeX, positiveY, negativeY, positiveZ, negativeZ };
+        }
+
+        private static Bitmap ReturnCroppedBitmap(Bitmap originalImage, int[] firstPoint, int[] secondPoint)
         {
             // calculate the width and height of our new image
             int width = Math.Abs(firstPoint[0] - secondPoint[0]);
@@ -24,35 +88,6 @@ namespace cubemap_converter
             }
 
             return area;
-        }
-
-        public static int GreatestCommonFactor(int a, int b)
-        {
-            // calculate greatest common factor and return the result
-
-            while (a != 0 && b != 0)
-            {
-                if (a > b)
-                    a %= b;
-                else
-                    b %= a;
-            }
-
-            return a == 0 ? b : a;
-        }
-
-        public static Bitmap[] ReturnSeperatedHorizontalCross(Bitmap cubemap, int multiple)
-        {
-            Bitmap positiveX = ReturnCroppedBitmap(cubemap, new int[] { multiple * 2, multiple }, new int[] { multiple * 3, multiple * 2 });
-            Bitmap negativeX = ReturnCroppedBitmap(cubemap, new int[] { 0, multiple }, new int[] { multiple, multiple * 2 });
-
-            Bitmap positiveY = ReturnCroppedBitmap(cubemap, new int[] { multiple, 0 }, new int[] { multiple * 2, multiple });
-            Bitmap negativeY = ReturnCroppedBitmap(cubemap, new int[] { multiple, multiple * 2 }, new int[] { multiple * 2, multiple * 3 });
-
-            Bitmap positiveZ = ReturnCroppedBitmap(cubemap, new int[] { multiple, multiple }, new int[] { multiple * 2, multiple * 2 });
-            Bitmap negativeZ = ReturnCroppedBitmap(cubemap, new int[] { multiple * 3, multiple }, new int[] { multiple * 4, multiple * 2 });
-
-            return new Bitmap[] { positiveX, negativeX, positiveY, negativeY, positiveZ, negativeZ };
         }
 
         // https://stackoverflow.com/questions/1922040/how-to-resize-an-image-c-sharp

@@ -28,13 +28,13 @@ namespace cubemap_converter
 
             // parse command line arguments
             var parser = new CommandLineParser<Options>();
-            parser.Configure(opt => opt.hcross).Name("hcross").Description("Path to horizontal cross cubemap.");
-            parser.Configure(opt => opt.vcross).Name("vcross").Description("Path to vertical cross cubemap.");
-            parser.Configure(opt => opt.vrow).Name("vrow").Description("Path to vertical row cubemap.");
-            parser.Configure(opt => opt.hrow).Name("hrow").Description("Path to horizontal row cubemap.");
+            parser.Configure(opt => opt.hcross).Name("hcross").Description("Path to horizontal cross cubemap.").Default("");
+            parser.Configure(opt => opt.vcross).Name("vcross").Description("Path to vertical cross cubemap.").Default("");
+            parser.Configure(opt => opt.vrow).Name("vrow").Description("Path to vertical row cubemap.").Default("");
+            parser.Configure(opt => opt.hrow).Name("hrow").Description("Path to horizontal row cubemap.").Default("");
             var result = parser.Parse(args);
 
-            // save all the faces into the //bin//images folder
+            // save all the faces into the \\bin\\images folder
             var encoder = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == ImageFormat.Jpeg.Guid);
             var encoderParams = new EncoderParameters() { Param = new[] { new EncoderParameter(Encoder.Quality, 100L) } };
             var filename = 0;
@@ -49,35 +49,54 @@ namespace cubemap_converter
 
                 return;
             }
-            else if (result.Result.hcross.Length > 0)
+            else if (File.Exists(result.Result.hcross))
             {
                 inputCubemap = new Bitmap(result.Result.hcross);
 
-                foreach (var face in GraphicsFuncs.ReturnSeperatedHorizontalCross(inputCubemap, GraphicsFuncs.GreatestCommonFactor(inputCubemap.Height, inputCubemap.Width)))
+                foreach (var face in GraphicsFuncs.ReturnSeperatedHorizontalCross(inputCubemap, inputCubemap.Width / 4))
                 {
-                    face.Save(Directory.GetCurrentDirectory() + $"//bin//images//{ filename }.jpg", encoder, encoderParams);
+                    face.Save(Directory.GetCurrentDirectory() + $"\\bin\\images\\{ filename }.jpg", encoder, encoderParams);
                     filename++;
                 }
             }
-            else if (result.Result.vcross.Length > 0)
+            else if (File.Exists(result.Result.vcross))
             {
                 inputCubemap = new Bitmap(result.Result.vcross);
 
-                // vcross processing
+                foreach (var face in GraphicsFuncs.ReturnSeperatedVerticalCross(inputCubemap, inputCubemap.Width / 3))
+                {
+                    face.Save(Directory.GetCurrentDirectory() + $"\\bin\\images\\{ filename }.jpg", encoder, encoderParams);
+                    filename++;
+                }
             }
-            else if (result.Result.hrow.Length > 0)
+            else if (File.Exists(result.Result.hrow))
             {
                 inputCubemap = new Bitmap(result.Result.hrow);
 
-                // hrow processing
+                foreach (var face in GraphicsFuncs.ReturnSeperatedHorizontalRow(inputCubemap, 0))
+                {
+                    face.Save(Directory.GetCurrentDirectory() + $"\\bin\\images\\{ filename }.jpg", encoder, encoderParams);
+                    filename++;
+                }
             }
-            else if (result.Result.vrow.Length > 0)
+            else if (File.Exists(result.Result.vrow))
             {
                 inputCubemap = new Bitmap(result.Result.vrow);
 
-                // vrow processing
+                foreach (var face in GraphicsFuncs.ReturnSeperatedVericalRow(inputCubemap, 0))
+                {
+                    face.Save(Directory.GetCurrentDirectory() + $"\\bin\\images\\{ filename }.jpg", encoder, encoderParams);
+                    filename++;
+                }
             }
-            Console.WriteLine("successfully seperated cubemap into seperate files");
+            else
+            {
+                Console.WriteLine($"You did not provide a valid file path.");
+                Console.ReadKey();
+
+                return;
+            }
+            Console.WriteLine("seperated cubemap into seperate files");
 
 
             File.WriteAllBytes(Directory.GetCurrentDirectory() + "\\bin\\texassemble.exe", Properties.Resources.texassemble);
