@@ -1,5 +1,5 @@
 # cubemap_converter
-convert cubemaps to .dds 
+convert cubemap images to .dds
 
 ## arguments
 
