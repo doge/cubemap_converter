@@ -12,7 +12,7 @@ convert cubemap images to .dds
 
 ## diagrams
 
-![cubemap diagram](https://docs.unity3d.com/uploads/Textures/CubeLayout6Faces.png)
+![cubemap diagram](https://i.stack.imgur.com/lX8wo.png)
 
 ## usage
 
